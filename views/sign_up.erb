@@ -1,0 +1,13 @@
+<form action="/signup" method="post">
+  <input type="email" name="mail" placeholder="Eメール"><br>
+  <input type="password" name="password" placeholder="パスワード"><br>
+  <input type="password" name="pasword_confirmation" placeholder="パスワードの確認" validates :password, presence: true,length: {in: 5..10}><br>
+  <input type="submit" value="新規登録">
+</form>
+
+<%# <form action="/signup" method="post">
+  <input type="email" name="mail" placeholder="Eメール" validates :email,presence: true,format: {with:/.+@.+/} uniqueness: true><br>
+  <input type="password" name="password" placeholder="パスワード" validates :password, presence: true,length: {in: 5..10}><br>
+  <input type="password" name="pasword_confirmation" placeholder="パスワードの確認" validates :password, presence: true,length: {in: 5..10}><br>
+  <input type="submit" value="新規登録">
+</form> %>

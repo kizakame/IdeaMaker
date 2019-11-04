@@ -1,0 +1,34 @@
+<div>
+  <div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>質問内容</th>
+            <th>解決済み</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tasks.each do |task| %>
+            <tr>
+             <td><%= CGI.escapeHTML(task.title) %></td>
+             <td><%= task.question %></td>
+              <td>
+                <% unless task.completed %>
+                  <form action="/tasks/<%= task.id %>/done" method="post">
+                    <input type="submit" value="解決済み">
+                  </form>
+                <% else %>
+                  解決済み
+                <% end %>
+              </td>
+            </tr>
+
+          <% end %>
+          <tr></tr><td colspan="6"><a href="/home">新しい投稿</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

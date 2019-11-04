@@ -1,0 +1,5 @@
+<form action="/signin" method="post">
+  <input type="email" name="mail" placeholder="Eメール" validates :email,presence: true,format: {with:/.+@.+/} ><br>
+  <input type="password" name="password" placeholder="パスワード" validates :password, presence: true,length: {in: 5..10}><br>
+  <input type="submit" value="ログイン">
+</form>

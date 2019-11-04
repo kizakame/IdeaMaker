@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+</head>
+<body>
+<h2>home</h2>
+<h3><%= User.find(session[:user]).mail %>としてログイン</h3>
+
+<div>
+  <form action="/tasks" method="post">
+    <div>
+      <div>
+        <input type="text" name="title" placeholder="タイトル"><br>
+      </div>
+      <div>
+        <input type="text" name="question" placeholder="質問内容"><br>
+      </div>
+      <div>
+        <input type="submit" value="投稿">
+      </div>
+    </div>
+  </form>
+  <a href="/mypage">マイページ</a>
+</body>
+
+</html>
