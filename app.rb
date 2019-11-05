@@ -31,6 +31,9 @@ end
  end
 
  get '/home' do
+  if current_user.nil?
+    redirect '/signin'
+  end
 
   erb :home
  end
