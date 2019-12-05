@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Account</title>
+</head>
+<body>
+
+<form action="/<%= @account_id %>" method="post" >
+
+<h2><%= CGI.escapeHTML(@account.mail)%>さんのページ</h2>
+ <div>
+
+        <%# <input type="submit" value="フォローする"> %>
+        <% if @current_user != @account %>
+
+          <div id="follow_form">
+
+          <form action="/<%= @account_id %>/follows" method="post" >
+             <% if @is_follow %>
+              <input type="submit" value="フォローを外す">
+             <% else %>
+              <input type="submit" value="フォローする">
+             <% end %>
+          </form>
+
+          </div>
+
+        <% end %>
+
+
+      </form>
+  </div>
+  <h3>フォロー：</h3><a href= "/<%= @account_id %>/follows">フォロー一覧</a>
+  <h3>フォロワー：</h3><a href= "/<%= @account_id %>/followers">フォロー一覧</a>
+
+   <table>
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>質問内容</th>
+            <th>詳細</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @tasks.each do |task| %>
+            <tr>
+             <td><%= CGI.escapeHTML(task.title) %></td>
+             <td><%= CGI.escapeHTML(task.question) %></td>
+             <td><a href= "/tasks/<%= task.id %>/comments">詳細</a>
+              </td>
+             <tr>
+          <% end %>
+         </tbody>
+   </table>
+
+</body>
+</html>

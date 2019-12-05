@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+<% @post = Task.where(id:params[:id])%>
+
+  <table>
+  <% @post.each do |post|%>
+  <% @postman = User.find_by(id:post.user_id) %>
+  <tr>
+    <thead>
+        <th>ユーザー名</th>
+        <th>プロフィール</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><a href= "/<%= @postman.id %>">プロフィールを見る</a></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </tr>
+  </table>
+</div>
+
+</body>
+</html>

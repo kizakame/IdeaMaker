@@ -15,6 +15,14 @@ helpers do
   def current_user
     User.find_by(id: session[:user])
   end
+  # def current_task
+  #   Task.find_by(id: session[:user])
+  # end
+
+  def following?(other_user)
+    current_user.following.include?(other_user)
+  end
+
 end
 
  get '/' do
@@ -94,3 +102,52 @@ post '/tasks/:id/done' do
   task.save
   redirect '/mypage'
 end
+
+get '/timeline' do
+  @tasks = Task.all
+
+  erb :timeline
+end
+
+post '/comments/:id' do
+  task = Task.find(params[:id])
+  task.comments.create(answer:params[:answer],user_id:session[:user])
+  redirect '/tasks/'+params[:id]+'/comments'
+end
+
+post '/tasks/:id/comments' do
+ comment = Task.find(params[:id])
+ comment.completed = true
+ comment.save
+ end
+
+ get '/tasks/:id/comments' do
+  @task_id = params[:id]
+
+  erb :comments
+
+ end
+
+ get '/:id' do
+  @account = User.find(params[:id])
+  @account_id = params[:id]
+  @tasks = Task.where(user_id: params[:id])
+  @current_user = current_user
+  @is_follow = following?(@account)
+  erb :account
+
+ end
+
+ get '/:id/follows' do
+   erb :follows
+ end
+
+ get '/:id/followers' do
+
+   erb :followers
+ end
+
+ post '/:id/follows' do
+  # @account = User.find(params[:id])
+  redirect '/'+params[:id]+'/follows'
+ end

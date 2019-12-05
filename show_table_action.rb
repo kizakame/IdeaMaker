@@ -16,3 +16,12 @@
       @models.push(model)
       erb :aldy_show_sqlite3_tables
     end
+
+    get '/models3' do
+      @models = []
+      column_names = Comment.column_names
+      rows = Comment.all
+      model = {"table_name": "history", "model_name": "history", "column_names": column_names, "rows": rows}
+      @models.push(model)
+      erb :aldy_show_sqlite3_tables
+    end

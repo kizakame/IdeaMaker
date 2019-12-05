@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>comments</title>
+</head>
+<body>
+<form action="/comments/<%= @task_id %>" method="post" >
+<%# paramsで取れるのは@task_idでとってきたもの %>
+  <% @comments = Comment.where(task_id:params[:id])%>
+  <% @post = Task.where(id:params[:id])%>
+
+
+
+  <div>
+
+  <% @post.each do |post|%>
+  <% @postman = User.find_by(id:post.user_id) %>
+  <div>
+  <h2><%= CGI.escapeHTML(post.question)%></h2>
+  <h2><%= CGI.escapeHTML(@postman.mail)%></h2>
+  <a href= "/<%= @postman.id %>">プロフィールを見る</a>
+  </div>
+  <% end %>
+
+
+      <% @comments.each do |comment| %>
+      <div>
+      <tr>
+        <td><%= CGI.escapeHTML(comment.answer)%></td>
+        <td>
+           <% if User.find_by(id:comment.user_id).nil? %>
+           <% @user = "某さん" %>
+           <%= CGI.escapeHTML(@user) %>
+          <% else %>
+          <% @user = User.find_by(id:comment.user_id) %>
+          <%= CGI.escapeHTML(@user.mail) %>
+          <% end %>
+        </td>
+      </tr>
+      </div>
+      <% end %>
+
+      <div>
+        <input type="text" name="answer" placeholder="回答">
+      </div>
+      <div>
+        <input type="submit" value="投稿">
+      </div>
+
+    </div>
+
+  </form>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<div>
+  <div>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>ユーザー名</th>
+            <th>タイトル</th>
+            <th>質問内容</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <% @tasks.each do |task| %>
+          <% @contributor = User.find_by(id:task.user_id)%>
+
+            <tr>
+             <td><%= CGI.escapeHTML(@contributor.mail)%></td>
+             <td><%= CGI.escapeHTML(task.title) %></td>
+             <td><%= CGI.escapeHTML(task.question) %></td>
+             <td>
+                  <form action="/tasks/<%= task.id %>/comments" method="post">
+                   <a href="/tasks/<%= task.id %>/comments">回答する</a>
+                  </form>
+              </td>
+            </tr>
+          <% end %>
+
+          <tr></tr><td colspan="6"><a href="/home">新しい投稿</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

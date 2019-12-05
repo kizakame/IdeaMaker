@@ -1,0 +1,3 @@
+ <% @contributor.each do |contributor| %>
+
+   <% @user = (@contributor = User.id) %>
