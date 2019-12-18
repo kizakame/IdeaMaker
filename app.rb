@@ -19,10 +19,6 @@ helpers do
   #   Task.find_by(id: session[:user])
   # end
 
-  def following?(other_user)
-    current_user.following.include?(other_user)
-  end
-
 end
 
  get '/' do
@@ -128,7 +124,7 @@ post '/tasks/:id/comments' do
 
  end
 
- get '/:id' do
+ get '/account/:id' do
   @account = User.find(params[:id])
   @account_id = params[:id]
   @tasks = Task.where(user_id: params[:id])
@@ -138,16 +134,44 @@ post '/tasks/:id/comments' do
 
  end
 
- get '/:id/follows' do
+ get '/account/:id/follows' do
+  @account = User.find(params[:id])
+  @follows = User.find(params[:id]).followings
    erb :follows
  end
 
- get '/:id/followers' do
-
+ get '/account/:id/followers' do
+  @account = User.find(params[:id])
+  @followers = User.find(params[:id]).followers
    erb :followers
  end
 
- post '/:id/follows' do
+ post '/account/:id/follows' do
   # @account = User.find(params[:id])
-  redirect '/'+params[:id]+'/follows'
+  @followers = User.find(params[:id]).followers
+  redirect '/account/'+params[:id]+'/follows'
  end
+
+ post '/account/:id/follow' do
+  @account = User.find(params[:id])
+  current_user.follow(@account)
+  redirect '/account/'+params[:id]
+ end
+
+ post '/account/:id/unfollow' do
+  @account = User.find(params[:id])
+  current_user.unfollow(@account)
+  redirect '/account/'+params[:id]
+ end
+
+ get '/search' do
+  @keywords = params[:search]
+  @hits = Task.where("question LIKE ?","%#{@keywords}%")
+  @answer = Comment.where("answer LIKE ?","%#{@keywords}%")
+  # @answer_hits = Task.find_by(id: @answer_user_id)
+  # @hits = @hits,@answer_hits
+  # @answer_hits = Task.find_by("answer LIKE ?","%#{@keywords}%").task
+  erb :search
+ end
+
+# User.find_by(mail: params[:mail]).nil?

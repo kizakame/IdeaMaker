@@ -21,7 +21,7 @@
   <div>
   <h2><%= CGI.escapeHTML(post.question)%></h2>
   <h2><%= CGI.escapeHTML(@postman.mail)%></h2>
-  <a href= "/<%= @postman.id %>">プロフィールを見る</a>
+  <a href= "/account/<%= @postman.id %>">プロフィールを見る</a>
   </div>
   <% end %>
 

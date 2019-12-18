@@ -8,26 +8,28 @@
 </head>
 <body>
   <div>
-<% @post = Task.where(id:params[:id])%>
+    <% @post = Task.where(id:params[:id])%>
 
-  <table>
-  <% @post.each do |post|%>
-  <% @postman = User.find_by(id:post.user_id) %>
-  <tr>
-    <thead>
-        <th>ユーザー名</th>
-        <th>プロフィール</th>
-    </thead>
-    <tbody>
+    <table>
+      <% @post.each do |post|%>
+      <% @postman = User.find_by(id:post.user_id) %>
+      <% @followers.each do |followers|%>
       <tr>
-        <td></td>
-        <td><a href= "/<%= @postman.id %>">プロフィールを見る</a></td>
+        <thead>
+          <th>ユーザー名</th>
+          <th>プロフィール</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= CGI.escapeHTML(followers.mail)%></td>
+            <td><a href="/account/<%= followers.id %>">プロフィールを見る</a></td>
+          </tr>
+        </tbody>
+        <% end %>
+        <% end %>
       </tr>
-      <% end %>
-    </tbody>
-  </tr>
-  </table>
-</div>
+    </table>
+  </div>
 
 </body>
 </html>

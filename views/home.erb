@@ -7,26 +7,34 @@
   <title>Home</title>
 </head>
 <body>
-<h2>home</h2>
-<h3><%= User.find(session[:user]).mail %>としてログイン</h3>
+  <h2>home</h2>
+  <h3><%= User.find(session[:user]).mail %>としてログイン</h3>
 
-<div>
-  <form action="/tasks" method="post">
+  <div>
+    <form action="/tasks" method="post">
+      <div>
+        <div>
+          <input type="text" name="title" placeholder="タイトル"><br>
+        </div>
+        <div>
+          <input type="text" name="question" placeholder="質問内容"><br>
+        </div>
+        <div>
+          <input type="submit" value="投稿">
+        </div>
+      </div>
+    </form>
     <div>
-      <div>
-        <input type="text" name="title" placeholder="タイトル"><br>
-      </div>
-      <div>
-        <input type="text" name="question" placeholder="質問内容"><br>
-      </div>
-      <div>
-        <input type="submit" value="投稿">
-      </div>
-    </div>
-  </form>
-  <a href="/mypage">マイページ</a>
-  <a href="/timeline">タイムライン</a>
-  <a href="/signout">ログアウト</a>
+      <br>
+      <form action="/search" method="get">
+        <div>
+          <input type="text" name="search" placeholder="検索">
+          <input type="submit" value="検索">
+        </div>
+      </form>
+      <a href="/mypage">マイページ</a>
+      <a href="/timeline">タイムライン</a>
+      <a href="/signout">ログアウト</a>
 </body>
 
 </html>

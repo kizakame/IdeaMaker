@@ -7,27 +7,29 @@
   <title>Document</title>
 </head>
 <body>
-<div>
-<% @post = Task.where(id:params[:id])%>
+  <div>
+    <% @post = Task.where(id:params[:id])%>
 
-  <table>
-  <% @post.each do |post|%>
-  <% @postman = User.find_by(id:post.user_id) %>
-  <tr>
-    <thead>
-        <th>ユーザー名</th>
-        <th>プロフィール</th>
-    </thead>
-    <tbody>
+    <table>
+      <% @post.each do |post|%>
+      <% @postman = User.find_by(id:post.user_id) %>
+      <% @follows.each do |follows|%>
       <tr>
-        <td></td>
-        <td><a href= "/<%= @postman.id %>">プロフィールを見る</a></td>
+        <thead>
+          <th>ユーザー名</th>
+          <th>プロフィール</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= CGI.escapeHTML(follows.mail)%></td>
+            <td><a href="/account/<%= follows.id %>">プロフィールを見る</a></td>
+          </tr>
+        </tbody>
       </tr>
       <% end %>
-    </tbody>
-  </tr>
-  </table>
-</div>
+      <% end %>
+    </table>
+  </div>
 
 </body>
 </html>

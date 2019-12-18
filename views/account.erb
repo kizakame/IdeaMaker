@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/<%= @account_id %>" method="post" >
+
 
 <h2><%= CGI.escapeHTML(@account.mail)%>さんのページ</h2>
  <div>
@@ -18,23 +18,27 @@
 
           <div id="follow_form">
 
-          <form action="/<%= @account_id %>/follows" method="post" >
+
              <% if @is_follow %>
+              <form action="/account/<%= @account_id %>/unfollow" method="post" >
               <input type="submit" value="フォローを外す">
+              </form>
              <% else %>
+              <form action="/account/<%= @account_id %>/follow" method="post" >
               <input type="submit" value="フォローする">
+              </form>
              <% end %>
-          </form>
+
 
           </div>
 
         <% end %>
 
 
-      </form>
+
   </div>
-  <h3>フォロー：</h3><a href= "/<%= @account_id %>/follows">フォロー一覧</a>
-  <h3>フォロワー：</h3><a href= "/<%= @account_id %>/followers">フォロー一覧</a>
+  <h3>フォロー：</h3><a href= "/account/<%= @account_id %>/follows">フォロー一覧</a>
+  <h3>フォロワー：</h3><a href= "/account/<%= @account_id %>/followers">フォロー一覧</a>
 
    <table>
         <thead>
