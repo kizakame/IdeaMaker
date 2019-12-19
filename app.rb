@@ -18,7 +18,9 @@ helpers do
   # def current_task
   #   Task.find_by(id: session[:user])
   # end
-
+  def following?(other_user)
+    current_user.followings.include?(other_user)
+  end
 end
 
  get '/' do
@@ -49,6 +51,12 @@ get '/mypage' do
     @tasks = current_user.tasks
   end
   erb :mypage
+end
+
+post '/:id/delete' do
+  tasks = Task.find(params[:id])
+  tasks.delete
+  redirect "/mypage"
 end
 
  post '/signin' do
@@ -166,12 +174,17 @@ post '/tasks/:id/comments' do
 
  get '/search' do
   @keywords = params[:search]
-  @hits = Task.where("question LIKE ?","%#{@keywords}%")
-  @answer = Comment.where("answer LIKE ?","%#{@keywords}%")
+  @question_hits = Task.where("question LIKE ?","%#{@keywords}%")
+  @answer_hits = Comment.where("answer LIKE ?","%#{@keywords}%")
+  @answer_hit = @answer_hits.map {|answer_hit| answer_hit.task}
+  # @question_hits = keywords.map
+  @hits = @question_hits | @answer_hit
+
   # @answer_hits = Task.find_by(id: @answer_user_id)
   # @hits = @hits,@answer_hits
   # @answer_hits = Task.find_by("answer LIKE ?","%#{@keywords}%").task
   erb :search
  end
+
 
 # User.find_by(mail: params[:mail]).nil?

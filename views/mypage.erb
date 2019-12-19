@@ -9,44 +9,49 @@
 <body>
 
 
-<div>
   <div>
-  <h2>マイページ</h2>
-  <h3>フォロー：</h3>
-  <h3>フォロワー：</h3>
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>タイトル</th>
-            <th>質問内容</th>
-            <th>解決済み</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @tasks.each do |task| %>
+      <h2>マイページ</h2>
+      <h3>フォロー：</h3>
+      <h3>フォロワー：</h3>
+      <div>
+        <table>
+          <thead>
             <tr>
-             <td><%= CGI.escapeHTML(task.title) %></td>
-             <td><%= CGI.escapeHTML(task.question) %></td>
+              <th>タイトル</th>
+              <th>質問内容</th>
+              <th>解決済み</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tasks.each do |task| %>
+            <tr>
+              <td><%= CGI.escapeHTML(task.title) %></td>
+              <td><%= CGI.escapeHTML(task.question) %></td>
               <td>
                 <% unless task.completed %>
-                  <form action="/tasks/<%= task.id %>/done" method="post">
-                    <input type="submit" value="解決済み">
-                  </form>
+                <form action="/tasks/<%= task.id %>/done" method="post">
+                  <input type="submit" value="解決済み">
+                </form>
                 <% else %>
-                  解決済み
+                解決済み
                 <% end %>
-                <a href= "/tasks/<%= task.id %>/comments">詳細</a>
+                <a href="/tasks/<%= task.id %>/comments">詳細</a>
+                <form action="<%= task.id %>/delete" method="post">
+                  <input type="submit" value="削除">
+                </form>
               </td>
             </tr>
 
-          <% end %>
-          <tr></tr><td colspan="6"><a href="/home">新しい投稿</a></td></tr>
-        </tbody>
-      </table>
+            <% end %>
+            <tr></tr>
+            <td colspan="6"><a href="/home">新しい投稿</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 </html>

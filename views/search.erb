@@ -9,23 +9,24 @@
 <body>
   <table>
     <% @hits.each do |hits| %>
-    <% @answer.each do |answer| %>
-    <% %>
+
+
 
     <tr>
       <thead>
         <th>タイトル</th>
         <th>質問</th>
         <%# <th>答え</th> %>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= CGI.escapeHTML(hits.title)%></td>
-        <td><%= CGI.escapeHTML(hits.question)%></td>
-        <%# <td></td> %>
-      </tr>
-    </tbody>
-    <% end %>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= CGI.escapeHTML(hits.title)%></td>
+          <td><%= CGI.escapeHTML(hits.question)%></td>
+          <%# <td></td> %>
+        </tr>
+      </tbody>
+      <% end %>
+
   </table>
 
 </body>
