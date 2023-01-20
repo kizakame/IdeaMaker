@@ -33,5 +33,5 @@ group :development do
     gem 'sqlite3'
 end
 
-gem 'activerecord' , '5.2.3'
+gem 'activerecord' , '6.1.7.1'
 gem 'rubocop'
